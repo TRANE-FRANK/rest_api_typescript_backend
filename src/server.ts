@@ -1,23 +1,30 @@
 import express from "express"
 import router from "./router"
 import db from "./config/db"
+import colors from "colors"
 
 //Conexion a Base de Datos
 async function connectDB() {
   try {
     await db.authenticate()
     db.sync()
-    console.log("Conectado a la base de datos")
+    console.log(colors.cyan.bold("CONECTADO A LA BASE DE DATOS"))
   } catch (error) {
-    console.log(error)
-    console.log("Error al conectar a la base de datos")
+    //console.log(error)
+    console.log(colors.red.bold("ERROR AL CONECTAR A LA BASE DE DATOS"))
   }
 }
 
 connectDB()
 
-//Configuracion del servidor
+//Instancia de Express
 const server = express()
+
+//Leer datos de formulario
+server.use(express.json())
+
+//Configuracion del servidor de rutas
 server.use("/api/products", router)
+
 
 export default server
