@@ -22,7 +22,6 @@ router.post(
     .withMessage("El precio del producto no pueder ir vacio")
     .custom((value) => value > 0)
     .withMessage("Precio no valido"),
-  handleInputErrors,
   createProduct
 )
 
